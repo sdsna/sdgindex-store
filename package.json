@@ -1,0 +1,50 @@
+{
+  "name": "@sdgindex/store",
+  "version": "0.0.0",
+  "description": "Store and load data in JSON files for fully static websites",
+  "main": "cjs/index.js",
+  "module": "es/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:es",
+    "build:cjs": "trash cjs/* && cross-env NODE_ENV=cjs babel src --out-dir cjs",
+    "build:es": "trash es/* && cross-env NODE_ENV=es babel src --out-dir es",
+    "test": "jest --config=jest.config.js",
+    "test:production": "jest --config=jest.production.config.js",
+    "prepare": "npm run build && husky install",
+    "release": "np"
+  },
+  "keywords": [
+    "store",
+    "data",
+    "json"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "SDG Index & Data Team",
+  "license": "ISC",
+  "files": [
+    "cjs",
+    "es"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-jest": "^27.2.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.4.2",
+    "husky": "^7.0.2",
+    "jest": "^27.2.1",
+    "lint-staged": "^11.1.2",
+    "np": "^7.5.0",
+    "prettier": "2.4.1",
+    "trash-cli": "^4.0.0"
+  },
+  "dependencies": {
+    "lodash.isempty": "^4.4.0"
+  }
+}

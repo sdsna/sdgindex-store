@@ -1,0 +1,13 @@
+# Ignore node modules
+/node_modules/
+
+# Ignore build output
+/cjs/
+/es/
+
+# Ignore documentation
+/out/
+
+# Ignore store files
+/**/.DS_Store
+

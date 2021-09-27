@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Identify operating system
+platform="unknown"
+case "$OSTYPE" in
+  "linux-gnu"*)
+    platform="linux"
+    ;;
+  "darwin"*)
+    platform="osx"
+    ;;
+  "cygwin"|"msys")
+    platform="windows"
+    ;;
+esac
+
+# Run a different command depending on platform
+# Atom on Windows only works when preceded by sh
+if [[ $platform == "windows" ]]; then
+  sh npx lint-staged
+else
+  npx lint-staged
+fi

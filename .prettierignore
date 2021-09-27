@@ -1,0 +1,25 @@
+# Ignore node modules
+/node_modules/
+
+# Ignore build output
+/cjs/
+/es/
+
+# Ignore documentation
+/docs/
+
+# Ignore store files
+/**/.DS_Store
+
+# Ignore Husky pre-commit setup
+.husky/
+
+# Ignore patch files
+patches/
+
+# Ignore other config files
+.lintstagedrc
+.prettierignore
+.gitignore
+netlify.toml
+
