@@ -1,3 +1,3 @@
 export function hasCollection(collection) {
-  return this.collections.some((c) => c.name === collection);
+  return Object.prototype.hasOwnProperty.call(this.collections, collection);
 }

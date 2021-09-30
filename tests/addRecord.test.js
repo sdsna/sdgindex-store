@@ -36,10 +36,9 @@ describe("when adding a record to a non-existent collection", () => {
 });
 
 describe("when record is missing an ID", () => {
-  it("throws an error", () => {
-    expect(() => addRecord("cats", { age: 2 })).toThrowError(
-      "Every record needs to be assigned a unique ID."
-    );
+  it("automatically assigns an ID", () => {
+    addRecord("cats", { age: 2 });
+    expect(findRecord("cats", 1)).toEqual({ id: 1, age: 2 });
   });
 });
 

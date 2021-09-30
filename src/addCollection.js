@@ -23,6 +23,6 @@ export function addCollection({ name, ...otherParams }) {
     throw new Error(`Collection with name ${name} already exists.`);
 
   // Add collection
-  this.collections.push({ name });
+  this.collections[name] = { nextId: 1 };
   this.data[name] = {};
 }
