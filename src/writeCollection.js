@@ -1,3 +1,6 @@
+import pickBy from "lodash.pickby";
+import zipObject from "lodash.zipobject";
+
 export function writeCollection(collection) {
   // Verify that we are in server environment
   if (typeof window !== "undefined") {
@@ -17,13 +20,23 @@ export function writeCollection(collection) {
   const filePath = this.getCollectionFilePath(collection);
   fse.ensureDirSync(path.dirname(filePath));
 
-  // Write human-friendly
-  fse.writeJsonSync(
-    filePath.replace(/\.json$/, "-raw.json"),
-    this.data[collection],
-    { spaces: 2 }
+  // Get all collections that share the same file name as this collection
+  const collections = pickBy(
+    this.collections,
+    ({ file }) => file === this.collections[collection].file
   );
 
+  // Assemble data from collections
+  const data = zipObject(
+    Object.keys(collections),
+    Object.keys(collections).map((collectionName) => this.data[collectionName])
+  );
+
+  // Write human-friendly
+  fse.writeJsonSync(filePath.replace(/\.json$/, "-raw.json"), data, {
+    spaces: 2,
+  });
+
   // Write minified
-  fse.writeJsonSync(filePath, this.data[collection]);
+  fse.writeJsonSync(filePath, data);
 }

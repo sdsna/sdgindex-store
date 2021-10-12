@@ -32,13 +32,48 @@ it("writes the collection's data to filesystem", () => {
 
   expect(writeJsonSync).toHaveBeenCalledWith(
     path.resolve("./public/data", "frogs.json"),
-    frogs
+    { frogs }
   );
   expect(writeJsonSync).toHaveBeenCalledWith(
     path.resolve("./public/data", "frogs-raw.json"),
-    frogs,
+    { frogs },
     { spaces: 2 }
   );
+});
+
+describe("when several collections share a file", () => {
+  beforeEach(() => {
+    ({ writeCollection, addRecord } = createStore({
+      collections: [
+        { name: "frogs", file: "main" },
+        { name: "cows", file: "main" },
+      ],
+    }));
+  });
+
+  it("writes both collections", () => {
+    const frogs = {
+      1: { id: 1, color: "green" },
+      5: { id: 5, color: "red" },
+    };
+    const cows = {
+      betty: { id: "betty", age: 12 },
+    };
+    Object.values(frogs).forEach((frog) => addRecord("frogs", frog));
+    Object.values(cows).forEach((frog) => addRecord("cows", frog));
+
+    writeCollection("frogs");
+
+    expect(writeJsonSync).toHaveBeenCalledWith(
+      path.resolve("./public/data", "main.json"),
+      { frogs, cows }
+    );
+    expect(writeJsonSync).toHaveBeenCalledWith(
+      path.resolve("./public/data", "main-raw.json"),
+      { frogs, cows },
+      { spaces: 2 }
+    );
+  });
 });
 
 describe("when collection does not exist", () => {

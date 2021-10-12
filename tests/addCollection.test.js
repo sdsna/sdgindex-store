@@ -1,9 +1,19 @@
 import createStore from "@sdgindex/store";
 
-let addCollection, hasCollection, data;
+let addCollection,
+  hasCollection,
+  data,
+  getCollectionWebPath,
+  getCollectionFilePath;
 
 beforeEach(() => {
-  ({ addCollection, hasCollection, data } = createStore());
+  ({
+    addCollection,
+    hasCollection,
+    data,
+    getCollectionFilePath,
+    getCollectionWebPath,
+  } = createStore());
 });
 
 it("can add a collection", () => {
@@ -64,5 +74,32 @@ describe("when a collection with the name already exists", () => {
     expect(() => addCollection({ name: "birds" })).toThrowError(
       "Collection with name birds already exists."
     );
+  });
+});
+
+describe("when passing a custom file name", () => {
+  it("adjusts the filePath and webPath", () => {
+    addCollection({ name: "birds", file: "dinosaurs" });
+
+    expect(getCollectionFilePath("birds")).toMatch(/dinosaurs\.json$/);
+    expect(getCollectionWebPath("birds")).toMatch(/dinosaurs\.json$/);
+  });
+
+  describe("when passing invalid file name", () => {
+    it("throws an error when name contains spaces", () => {
+      expect(() =>
+        addCollection({ name: "birds", file: "my file" })
+      ).toThrowError(
+        "Collection file name my file is invalid. Only a-z, A-Z, 0-9, _, and - are allowed."
+      );
+    });
+
+    it("throws an error with name !nv$l(d-ch@r@ct{rs", () => {
+      expect(() =>
+        addCollection({ name: "birds", file: "!nv$l(d-ch@r@ct{rs" })
+      ).toThrowError(
+        "Collection file name !nv$l(d-ch@r@ct{rs is invalid. Only a-z, A-Z, 0-9, _, and - are allowed."
+      );
+    });
   });
 });

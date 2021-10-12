@@ -11,5 +11,8 @@ export function getCollectionFilePath(collection) {
     throw new Error(`Collection with name ${collection} does not exist.`);
 
   const path = require("path");
-  return path.resolve("./public/data", `${collection}.json`);
+  return path.resolve(
+    "./public/data",
+    `${this.collections[collection].file}.json`
+  );
 }

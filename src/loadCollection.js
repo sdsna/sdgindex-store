@@ -1,3 +1,5 @@
+import pickBy from "lodash.pickby";
+
 export function loadCollection(collection) {
   // If collection has loaded, return existing data
   if (this.hasLoadedCollection(collection))
@@ -23,17 +25,27 @@ export function loadCollection(collection) {
 
   // When loading is done, replace promise with actual data
   promise.then((data) => {
-    Object.assign(this.data[collection], data);
-
-    // Mark collection as loaded and remove promise
-    this.collections[collection].loaded = true;
-    this.collections[collection].promise = null;
-
+    Object.assign(this.data, data);
     return data;
   });
 
-  // Store promise for re-use when trying to load collection again
-  this.collections[collection].promise = promise;
+  // Get all collections contained in this collection's file
+  const collections = pickBy(
+    this.collections,
+    ({ file }) => file === this.collections[collection].file
+  );
 
-  return promise;
+  // Store promise for re-use when trying to load collection again for all
+  // collections that share this collection's file name
+  Object.entries(collections).map(([collectionName, collectionObject]) => {
+    collectionObject.promise = promise.then((data) => {
+      // Mark collection as loaded and remove promise
+      collectionObject.loaded = true;
+      collectionObject.promise = null;
+
+      return data[collectionName];
+    });
+  });
+
+  return this.collections[collection].promise;
 }
