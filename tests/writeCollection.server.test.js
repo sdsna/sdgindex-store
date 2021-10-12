@@ -18,7 +18,7 @@ beforeEach(() => {
 
 it("ensures the target directory exists", () => {
   writeCollection("frogs");
-  expect(ensureDirSync).toHaveBeenCalledWith("./public/data");
+  expect(ensureDirSync).toHaveBeenCalledWith(path.resolve("./public/data"));
 });
 
 it("writes the collection's data to filesystem", () => {
@@ -31,11 +31,11 @@ it("writes the collection's data to filesystem", () => {
   writeCollection("frogs");
 
   expect(writeJsonSync).toHaveBeenCalledWith(
-    path.join("./public/data", "frogs.json"),
+    path.resolve("./public/data", "frogs.json"),
     frogs
   );
   expect(writeJsonSync).toHaveBeenCalledWith(
-    path.join("./public/data", "frogs-raw.json"),
+    path.resolve("./public/data", "frogs-raw.json"),
     frogs,
     { spaces: 2 }
   );

@@ -1,6 +1,3 @@
-const FILE_PATH = "./public/data";
-const WEB_PATH = "/data/";
-
 export function loadCollection(collection) {
   // If collection has loaded, return existing data
   if (this.hasLoadedCollection(collection))
@@ -15,12 +12,13 @@ export function loadCollection(collection) {
   // Load data via readJson (server) or fetch (browser), depending on environment
   if (typeof window === "undefined" || typeof fetch === "undefined") {
     // Server
-    const path = require("path");
     const fse = require("fs-extra");
-    promise = fse.readJson(path.resolve(FILE_PATH, `${collection}.json`));
+    promise = fse.readJson(this.getCollectionFilePath(collection));
   } else {
     // Browser
-    promise = fetch(`${WEB_PATH}${collection}.json`).then((res) => res.json());
+    promise = fetch(this.getCollectionWebPath(collection)).then((res) =>
+      res.json()
+    );
   }
 
   // When loading is done, replace promise with actual data

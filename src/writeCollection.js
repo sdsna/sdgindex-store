@@ -1,5 +1,3 @@
-const FILE_PATH = "./public/data";
-
 export function writeCollection(collection) {
   // Verify that we are in server environment
   if (typeof window !== "undefined") {
@@ -16,18 +14,16 @@ export function writeCollection(collection) {
   const fse = require("fs-extra");
 
   // Ensure target directory exists
-  fse.ensureDirSync(FILE_PATH);
+  const filePath = this.getCollectionFilePath(collection);
+  fse.ensureDirSync(path.dirname(filePath));
 
   // Write human-friendly
   fse.writeJsonSync(
-    path.join(FILE_PATH, `${collection}-raw.json`),
+    filePath.replace(/\.json$/, "-raw.json"),
     this.data[collection],
     { spaces: 2 }
   );
 
   // Write minified
-  fse.writeJsonSync(
-    path.join(FILE_PATH, `${collection}.json`),
-    this.data[collection]
-  );
+  fse.writeJsonSync(filePath, this.data[collection]);
 }
