@@ -55,3 +55,15 @@ describe("when returning multiple keys in dataset", () => {
     });
   });
 });
+
+describe("when loading collection repeatedly", () => {
+  it("only loads data once", async () => {
+    mockReadJson();
+    await loadCollection("hamsters");
+    expect(readJson).toHaveBeenCalledTimes(1);
+
+    // Additional calls of the function does not re-trigger loading
+    await loadCollection("hamsters");
+    expect(readJson).toHaveBeenCalledTimes(1);
+  });
+});

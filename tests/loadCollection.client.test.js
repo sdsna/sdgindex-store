@@ -54,3 +54,15 @@ describe("when returning multiple keys in dataset", () => {
     });
   });
 });
+
+describe("when loading collection repeatedly", () => {
+  it("only loads data once", async () => {
+    mockFetch();
+    await loadCollection("dolphins");
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    // Additional calls of the function does not re-trigger loading
+    await loadCollection("dolphins");
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+});
