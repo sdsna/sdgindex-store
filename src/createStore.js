@@ -1,8 +1,12 @@
 import omit from "lodash.omit";
 import bindMethods from "./bindMethods";
 import { addCollection } from "./addCollection";
-import { hasCollection } from "./hasCollection";
 import { getCollection } from "./getCollection";
+import { hasCollection } from "./hasCollection";
+import { hasLoadedCollection } from "./hasLoadedCollection";
+import { isLoadingCollection } from "./isLoadingCollection";
+import { loadCollection } from "./loadCollection";
+import { writeCollection } from "./writeCollection";
 import { addRecord } from "./addRecord";
 import { hasRecord } from "./hasRecord";
 import { findRecord } from "./findRecord";
@@ -13,9 +17,14 @@ const createStore = ({ collections = [] } = {}) => {
   const store = {
     data: {},
     collections: {},
+    promises: {},
     addCollection,
-    hasCollection,
     getCollection,
+    hasCollection,
+    hasLoadedCollection,
+    isLoadingCollection,
+    loadCollection,
+    writeCollection,
     addRecord,
     hasRecord,
     findRecord,
@@ -28,7 +37,7 @@ const createStore = ({ collections = [] } = {}) => {
   // Set up collections
   collections.forEach(store.addCollection);
 
-  return omit(store, "issueId");
+  return omit(store, "issueId", "promises");
 };
 
 export { createStore };

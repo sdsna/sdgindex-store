@@ -29,6 +29,10 @@
     "cjs",
     "es"
   ],
+  "browser": {
+    "path": false,
+    "fs-extra": false
+  },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
@@ -45,6 +49,7 @@
     "trash-cli": "^4.0.0"
   },
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isempty": "^4.4.0",
     "lodash.omit": "^4.5.0"
