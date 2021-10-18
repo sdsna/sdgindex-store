@@ -18,7 +18,7 @@ afterEach(() => {
 
 const mockFetch = (data) => {
   global.fetch = jest.fn().mockImplementation((url) => {
-    if (url != "/data/dolphins.json") throw Error("Invalid request");
+    if (url != "/data/dolphins.min.json") throw Error("Invalid request");
 
     return new Promise((resolve) => {
       resolve({

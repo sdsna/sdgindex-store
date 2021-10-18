@@ -31,11 +31,11 @@ it("writes the collection's data to filesystem", () => {
   writeCollection("frogs");
 
   expect(writeJsonSync).toHaveBeenCalledWith(
-    path.resolve("./public/data", "frogs.json"),
+    path.resolve("./public/data", "frogs.min.json"),
     { frogs }
   );
   expect(writeJsonSync).toHaveBeenCalledWith(
-    path.resolve("./public/data", "frogs-raw.json"),
+    path.resolve("./public/data", "frogs.json"),
     { frogs },
     { spaces: 2 }
   );
@@ -65,11 +65,11 @@ describe("when several collections share a file", () => {
     writeCollection("frogs");
 
     expect(writeJsonSync).toHaveBeenCalledWith(
-      path.resolve("./public/data", "main.json"),
+      path.resolve("./public/data", "main.min.json"),
       { frogs, cows }
     );
     expect(writeJsonSync).toHaveBeenCalledWith(
-      path.resolve("./public/data", "main-raw.json"),
+      path.resolve("./public/data", "main.json"),
       { frogs, cows },
       { spaces: 2 }
     );

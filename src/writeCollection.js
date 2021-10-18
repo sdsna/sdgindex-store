@@ -33,7 +33,7 @@ export function writeCollection(collection) {
   );
 
   // Write human-friendly
-  fse.writeJsonSync(filePath.replace(/\.json$/, "-raw.json"), data, {
+  fse.writeJsonSync(filePath.replace(/\.min.json$/, ".json"), data, {
     spaces: 2,
   });
 

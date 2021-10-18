@@ -13,6 +13,6 @@ export function getCollectionFilePath(collection) {
   const path = require("path");
   return path.resolve(
     "./public/data",
-    `${this.collections[collection].file}.json`
+    `${this.collections[collection].file}.min.json`
   );
 }

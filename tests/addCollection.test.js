@@ -81,8 +81,8 @@ describe("when passing a custom file name", () => {
   it("adjusts the filePath and webPath", () => {
     addCollection({ name: "birds", file: "dinosaurs" });
 
-    expect(getCollectionFilePath("birds")).toMatch(/dinosaurs\.json$/);
-    expect(getCollectionWebPath("birds")).toMatch(/dinosaurs\.json$/);
+    expect(getCollectionFilePath("birds")).toMatch(/dinosaurs\.min\.json$/);
+    expect(getCollectionWebPath("birds")).toMatch(/dinosaurs\.min\.json$/);
   });
 
   describe("when passing invalid file name", () => {

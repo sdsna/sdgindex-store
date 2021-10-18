@@ -138,8 +138,8 @@ IDs.
 ### Writing Data
 
 To write data to JSON files, use the `writeCollection` method. This creates
-two `.json` files per collection: One minified (`.json`) and one with spaces
-and newlines for human reading and diffing (`-raw.json`).
+two `.json` files per collection: One minified (`.min.json`) and one with spaces
+and newlines for human reading and diffing (`.json`).
 
 ```javascript
 const { addRecord, writeCollection } = createStore({

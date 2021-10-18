@@ -17,7 +17,7 @@ beforeEach(() => {
 jest.mock("fs-extra");
 
 // Mock readJson() and return the given data
-const mockReadJson = (data, dataPath = "public/data/hamsters.json") => {
+const mockReadJson = (data, dataPath = "public/data/hamsters.min.json") => {
   readJson.mockImplementation((filePath) => {
     if (filePath != path.resolve(dataPath)) throw Error("Invalid path");
 
@@ -81,7 +81,7 @@ describe("when several collections share a file", () => {
         hamsters: { data: "hamsters" },
         chinchillas: { data: "chinchillas" },
       },
-      "public/data/chinchillas.json"
+      "public/data/chinchillas.min.json"
     );
 
     await loadCollection("hamsters");
