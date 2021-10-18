@@ -11,15 +11,11 @@ it("returns all store functions", () => {
   expect(createStore()).toMatchObject({
     addCollection: expect.any(Function),
     hasCollection: expect.any(Function),
-    getCollection: expect.any(Function),
+    getRecords: expect.any(Function),
     addRecord: expect.any(Function),
     hasRecord: expect.any(Function),
     findRecord: expect.any(Function),
   });
-});
-
-it("keeps issueId function internal", () => {
-  expect(createStore()).not.toHaveProperty("issueId");
 });
 
 it("can pass collections to createStore", () => {

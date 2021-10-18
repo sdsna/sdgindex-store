@@ -9,10 +9,6 @@ export function writeCollection(collection) {
     );
   }
 
-  // Verify that the collection exists
-  if (!this.hasCollection(collection))
-    throw new Error(`Collection with name ${collection} does not exist.`);
-
   const path = require("path");
   const fse = require("fs-extra");
 
@@ -23,7 +19,7 @@ export function writeCollection(collection) {
   // Get all collections that share the same file name as this collection
   const collections = pickBy(
     this.collections,
-    ({ file }) => file === this.collections[collection].file
+    ({ file }) => file === this.getCollection(collection).file
   );
 
   // Assemble data from collections

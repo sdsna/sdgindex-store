@@ -1,15 +1,11 @@
 import createStore from "@sdgindex/store";
-import { issueId as unboundIssueId } from "private:@sdgindex/store/issueId";
 
 let issueId, addRecord;
 
 beforeEach(() => {
-  const store = createStore({
+  ({ addRecord, issueId } = createStore({
     collections: [{ name: "kangaroos" }],
-  });
-  store.issueId = unboundIssueId.bind(store);
-
-  ({ addRecord, issueId } = store);
+  }));
 });
 
 it("returns incrementing numeric IDs, starting with 1", () => {

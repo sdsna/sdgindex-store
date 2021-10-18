@@ -1,9 +1,9 @@
 import createStore from "@sdgindex/store";
 
-let addRecord, getCollection, findRecord;
+let addRecord, getRecords, findRecord;
 
 beforeEach(() => {
-  ({ addRecord, getCollection, findRecord } = createStore({
+  ({ addRecord, getRecords, findRecord } = createStore({
     collections: [{ name: "cats" }],
   }));
 });
@@ -12,7 +12,7 @@ it("can add records", () => {
   addRecord("cats", { id: 1, color: "orange" });
   addRecord("cats", { id: 2, size: "large" });
 
-  expect(getCollection("cats")).toEqual([
+  expect(getRecords("cats")).toEqual([
     { id: 1, color: "orange" },
     { id: 2, size: "large" },
   ]);

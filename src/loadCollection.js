@@ -3,11 +3,11 @@ import pickBy from "lodash.pickby";
 export function loadCollection(collection) {
   // If collection has loaded, return existing data
   if (this.hasLoadedCollection(collection))
-    return Promise.resolve(this.getCollection(collection));
+    return Promise.resolve(this.getRecords(collection));
 
   // If collection is loading, return promise
   if (this.isLoadingCollection(collection))
-    return this.collections[collection].promise;
+    return this.getCollection(collection).promise;
 
   let promise = null;
 
@@ -32,7 +32,7 @@ export function loadCollection(collection) {
   // Get all collections contained in this collection's file
   const collections = pickBy(
     this.collections,
-    ({ file }) => file === this.collections[collection].file
+    ({ file }) => file === this.getCollection(collection).file
   );
 
   // Store promise for re-use when trying to load collection again for all
@@ -47,5 +47,5 @@ export function loadCollection(collection) {
     });
   });
 
-  return this.collections[collection].promise;
+  return this.getCollection(collection).promise;
 }

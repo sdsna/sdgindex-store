@@ -6,13 +6,9 @@ export function getCollectionFilePath(collection) {
     );
   }
 
-  // Verify that the collection exists
-  if (!this.hasCollection(collection))
-    throw new Error(`Collection with name ${collection} does not exist.`);
-
   const path = require("path");
   return path.resolve(
     "./public/data",
-    `${this.collections[collection].file}.min.json`
+    `${this.getCollection(collection).file}.min.json`
   );
 }

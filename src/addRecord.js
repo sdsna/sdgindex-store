@@ -1,10 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 
 export function addRecord(collection, record) {
-  // Verify that the collection exists
-  if (!this.hasCollection(collection))
-    throw new Error(`Collection with name ${collection} does not exist.`);
-
   // If record has no ID set, automatically issue an ID
   if (record.id == null) record.id = this.issueId(collection);
 

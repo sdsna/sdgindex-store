@@ -41,10 +41,10 @@ const collections = [{ name: "countries" }, { name: "indicators" }];
 
 // Create the store with the two collections and destructure the functions
 // for interacting with our new store
-const { getCollection, findRecord, addRecord } = createStore({ collections });
+const { getRecords, findRecord, addRecord } = createStore({ collections });
 
 module.exports = {
-  getCollection,
+  getRecords,
   findRecord,
   addRecord,
 };
@@ -184,16 +184,16 @@ collection must be loaded into the store. For this, you will use the
 
 ```javascript
 // stores/dataStore
-const { loadCollection, findRecord, getCollection } = createStore({
+const { loadCollection, findRecord, getRecords } = createStore({
   collections: [{ name: "countries" }],
 });
 
-module.exports = { loadCollection, findRecord, getCollection };
+module.exports = { loadCollection, findRecord, getRecords };
 ```
 
 ```javascript
 // pages/MyPage.js
-import { loadCollection, findRecord, getCollection } from "stores/dataStore";
+import { loadCollection, findRecord, getRecords } from "stores/dataStore";
 
 const MyPage = (country) => <p>{country.name}</p>;
 
@@ -202,9 +202,9 @@ MyPage.getInitialProps = async () => {
   // loaded, it is NOT requested again and the promise resolves right away.
   await loadCollection("countries");
 
-  // From here on, we can use findRecord or getCollection
+  // From here on, we can use findRecord or getRecords
   const country = findRecord("countries", 1);
-  const countries = getCollection("countries");
+  const countries = getRecords("countries");
 
   return { country };
 };
