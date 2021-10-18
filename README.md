@@ -154,6 +154,8 @@ const { addRecord, writeCollection } = createStore({
 writeCollection("countries");
 ```
 
+To write all collections, you can use `writeCollections()`.
+
 By default, collections are written to the `public/data` directory.
 
 By default, each collection is written to a separate JSON file, so that
@@ -211,6 +213,11 @@ MyPage.getInitialProps = async () => {
 
 export default MyPage;
 ```
+
+To load all collections, you can call `loadCollections()` with no arguments.
+To load only some collections, you can call the same function with an array of
+collections to load, for example
+`loadCollections(["collectionA", "collectionB"])`.
 
 ## Records
 

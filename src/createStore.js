@@ -5,7 +5,9 @@ import { hasCollection } from "./hasCollection";
 import { hasLoadedCollection } from "./hasLoadedCollection";
 import { isLoadingCollection } from "./isLoadingCollection";
 import { loadCollection } from "./loadCollection";
+import { loadCollections } from "./loadCollections";
 import { writeCollection } from "./writeCollection";
+import { writeCollections } from "./writeCollections";
 import { getCollectionFilePath } from "./getCollectionFilePath";
 import { getCollectionWebPath } from "./getCollectionWebPath";
 import { addRecord } from "./addRecord";
@@ -25,7 +27,9 @@ const createStore = ({ collections = [] } = {}) => {
     hasLoadedCollection,
     isLoadingCollection,
     loadCollection,
+    loadCollections,
     writeCollection,
+    writeCollections,
     getCollectionFilePath,
     getCollectionWebPath,
     addRecord,
