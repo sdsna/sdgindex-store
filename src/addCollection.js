@@ -2,7 +2,12 @@ import isEmpty from "lodash.isempty";
 
 const namePattern = /^[a-z0-9_-]+$/i;
 
-export function addCollection({ name, file, ...otherParams }) {
+export function addCollection({
+  name,
+  file,
+  alwaysLoad = false,
+  ...otherParams
+}) {
   // Verify that no unpermitted params have been supplied
   if (!isEmpty(otherParams))
     throw new Error(
@@ -32,6 +37,6 @@ export function addCollection({ name, file, ...otherParams }) {
     throw new Error(`Collection with name ${name} already exists.`);
 
   // Add collection
-  this.collections[name] = { nextId: 1, file };
+  this.collections[name] = { nextId: 1, file, alwaysLoad };
   this.data[name] = {};
 }

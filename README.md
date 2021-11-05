@@ -214,10 +214,32 @@ MyPage.getInitialProps = async () => {
 export default MyPage;
 ```
 
-To load all collections, you can call `loadCollections()` with no arguments.
+To load all collections, you can call `loadCollections("all")`.
 To load only some collections, you can call the same function with an array of
 collections to load, for example
-`loadCollections(["collectionA", "collectionB"])`.
+`loadCollections(["collectionA", "collectionB"])`. You can also mark collections
+with `alwaysLoad` to automatically load certain collections when you call
+`loadCollections()`. For example:
+
+```javascript
+const collections = [
+  // Indicate that countries should always be loaded
+  { name: "countries", alwaysLoad: true },
+  { name: "indicators" },
+  { name: "observations" },
+];
+
+const store = createStore({ collections });
+
+// Load only countries collection
+loadCollections();
+
+// Load countries and indicators
+loadCollections(["indicators"]);
+
+// Load countries, indicators, and observations
+loadCollections("all");
+```
 
 ## Records
 

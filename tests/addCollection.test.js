@@ -3,6 +3,7 @@ import createStore from "@sdgindex/store";
 let addCollection,
   hasCollection,
   data,
+  collections,
   getCollectionWebPath,
   getCollectionFilePath;
 
@@ -11,6 +12,7 @@ beforeEach(() => {
     addCollection,
     hasCollection,
     data,
+    collections,
     getCollectionFilePath,
     getCollectionWebPath,
   } = createStore());
@@ -32,6 +34,12 @@ it("sets data for collection to empty object", () => {
   addCollection({ name: "birds" });
 
   expect(data["birds"]).toEqual({});
+});
+
+it("can add a collection marked as alwaysLoad", () => {
+  addCollection({ name: "birds", alwaysLoad: true });
+
+  expect(collections["birds"]).toHaveProperty("alwaysLoad", true);
 });
 
 describe("when passing invalid collection parameters", () => {

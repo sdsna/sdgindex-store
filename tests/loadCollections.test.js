@@ -9,7 +9,8 @@ beforeEach(() => {
     collections: [
       { name: "penguins" },
       { name: "flamingoes" },
-      { name: "owls" },
+      { name: "owls", alwaysLoad: true },
+      { name: "swans", alwaysLoad: true },
     ],
   });
 
@@ -17,13 +18,12 @@ beforeEach(() => {
   ({ loadCollections } = store);
 });
 
-it("runs loadCollection for every collection", () => {
+it("runs loadCollection for all collections marked as alwaysLoad", () => {
   loadCollections();
 
-  expect(mockLoadCollection).toHaveBeenCalledWith("penguins");
-  expect(mockLoadCollection).toHaveBeenCalledWith("flamingoes");
   expect(mockLoadCollection).toHaveBeenCalledWith("owls");
-  expect(mockLoadCollection).toHaveBeenCalledTimes(3);
+  expect(mockLoadCollection).toHaveBeenCalledWith("swans");
+  expect(mockLoadCollection).toHaveBeenCalledTimes(2);
 });
 
 describe("with argument 'all'", () => {
@@ -33,17 +33,19 @@ describe("with argument 'all'", () => {
     expect(mockLoadCollection).toHaveBeenCalledWith("penguins");
     expect(mockLoadCollection).toHaveBeenCalledWith("flamingoes");
     expect(mockLoadCollection).toHaveBeenCalledWith("owls");
-    expect(mockLoadCollection).toHaveBeenCalledTimes(3);
+    expect(mockLoadCollection).toHaveBeenCalledWith("swans");
+    expect(mockLoadCollection).toHaveBeenCalledTimes(4);
   });
 });
 
 describe("with array of collections", () => {
-  it("runs loadCollection for each element in the array", () => {
+  it("loads each collection plus collections marked as alwaysLoad", () => {
     loadCollections(["penguins", "owls"]);
 
     expect(mockLoadCollection).toHaveBeenCalledWith("penguins");
     expect(mockLoadCollection).toHaveBeenCalledWith("owls");
+    expect(mockLoadCollection).toHaveBeenCalledWith("swans");
     expect(mockLoadCollection).not.toHaveBeenCalledWith("flamingoes");
-    expect(mockLoadCollection).toHaveBeenCalledTimes(2);
+    expect(mockLoadCollection).toHaveBeenCalledTimes(3);
   });
 });
