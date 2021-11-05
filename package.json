@@ -1,6 +1,6 @@
 {
   "name": "@sdgindex/store",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Store and load data in JSON files for fully static websites",
   "main": "cjs/index.js",
   "module": "es/index.js",
